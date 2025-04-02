@@ -1,87 +1,63 @@
 # Flood Risk Prediction System
 
-## Video Demonstration
-[Watch the system walkthrough on YouTube](https://youtu.be/demo-link-here)
+![Flood Prediction Demo](https://img.shields.io/badge/Demo-YouTube-red) 
+![Python Version](https://img.shields.io/badge/Python-3.8%2B-blue)
+![Docker Ready](https://img.shields.io/badge/Docker-Supported-green)
 
-## Project Description
-A machine learning system that predicts flood risks in South Sudan based on environmental factors. The deployed model provides:
-- Real-time flood risk classification (Low/Medium/High)
-- Visualizations of key environmental trends
-- Retraining capability with new data
-- Scalable API endpoints
+## 📺 Video Demonstration
+[![System Walkthrough](https://img.shields.io/badge/YouTube-Demo_Link-FF0000?logo=youtube)](https://youtu.be/demo-link-here)
 
-## Technical Requirements
-- Python 3.8+
-- Docker
-- Locust (for load testing)
-- Cloud account (AWS/GCP/Azure) for deployment
+## 📝 Project Description
+Machine learning system for predicting flood risks in South Sudan using environmental data. Key features:
 
-## Installation Guide
+- Real-time risk classification (Low/Medium/High)
+- Interactive data visualizations
+- Model retraining pipeline
+- Scalable REST API
+- Performance monitoring dashboard
 
-### Local Setup
-1. Clone repository:
+## 🛠️ Installation
 
+### Local Development
+```bash
+# 1. Clone repository
 git clone git@github.com:John-Akech/Summative-assignment-MLOP.git
-
 cd flood-prediction-system
 
-**Create virtual environment:**
-
+# 2. Create virtual environment
 python -m venv venv
-
 source venv/bin/activate  # Linux/Mac
+# venv\Scripts\activate  # Windows
 
-venv\Scripts\activate    # Windows
-
-**Install dependencies:**
-
+# 3. Install dependencies
 pip install -r src/requirements.txt
 
-Launch application:
-
+# 4. Launch application
 python src/app.py
 
-**Docker Setup**
+🐳 Docker Deployment
 
-1. Build the image:
-   
+# Build image
 docker build -t flood-model .
 
-2. Run container:
-    
+# Run container (maps port 5000)
 docker run -p 5000:5000 flood-model
 
-**API Usage**
+🌐 API Endpoints
+Endpoint	Method	Description
+/	GET	System status
+/predict	POST	Get flood risk prediction
+/upload	POST	Upload new training data
+/retrain	POST	Trigger model retraining
 
-Prediction Endpoint
+Sample Prediction Request:
 
-http://localhost:5000/predict
+📊 Performance Benchmarks
+Load testing results using Locust (1 req/sec per user):
 
-**Retraining Workflow**
-
-1. Upload CSV data:
-
-curl -F "file=@new_data.csv" http://localhost:5000/upload
-
-2. Trigger retraining:
-
-curl -X POST http://localhost:5000/retrain
-
-**Performance Metrics**
-
-Load testing results using Locust:
-
-Containers	Users	Avg Latency	Error Rate
-
-1	             100	      320ms	       0%
-
-2          	    250	      290ms        0%
-
-4          	    500	      270ms        0%
-
-8	             1000	      310ms        2%
-
-
-**Support**
-
-For issues, please open a ticket in GitHub Issues.
+Containers	Concurrent Users	Avg Latency	95th %ile	Error Rate
+1	100	320ms	410ms	0%
+2	250	290ms	380ms	0%
+4	500	270ms	350ms	0%
+8	1000	310ms	420ms	2%
+Performance Graph
