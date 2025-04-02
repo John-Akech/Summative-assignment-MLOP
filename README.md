@@ -61,7 +61,7 @@ docker run -p 5000:5000 flood-model
 
 Prediction Endpoint
 
-URL: POST http://localhost:5000/api/v1/predict
+URL: POST [http://localhost:5000/api/v1/predict](http://localhost:5000/predict)
 
 Request Example:
 
@@ -89,12 +89,11 @@ Response Example:
 
 **1. Upload new training data:**
 
-curl -X POST -F "file=@training_data.csv" http://localhost:5000/api/v1/upload
+curl -F "file=@new_data.csv" http://localhost:5000/upload
 
 **2. Trigger model retraining:**
 
-curl -X POST http://localhost:5000/api/v1/retrain
-
+curl -X POST http://localhost:5000/retrain
 
 ## Performance Metrics
 
