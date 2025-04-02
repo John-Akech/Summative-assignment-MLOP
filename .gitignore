@@ -5,3 +5,6 @@ __pycache__/
 *.dylibvenv/
 *.dylib
 venv/
+venv/
+*.dylib
+*.so
