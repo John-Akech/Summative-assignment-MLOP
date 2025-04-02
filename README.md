@@ -19,31 +19,28 @@ Key features:
 - Docker 20.10+
 - Locust 2.8+ (for load testing)
 
-  ## Project Structure
+## 📊 Performance Metrics
 
-| Directory/File              | Type       | Description                              |
-|-----------------------------|------------|------------------------------------------|
-| **flood_prediction_system/**| Directory  | All data files                           |
-| ├── **raw/**                | Directory  | Original/unprocessed data                |
-| │   └── flood.csv           | Dataset    | Source dataset                           |
-| ├── **processed/**          | Directory  | Cleaned and processed data               |
-| │   ├── flood_processed.csv | Dataset    | Final processed dataset                  |
-| │   ├── test_data.csv       | Dataset    | Test split                               |
-| │   └── train_data.csv      | Dataset    | Training split                           |
-| └── feature_importance.csv  | Dataset    | Feature rankings                         |
-| **models/**                 | Directory  | Trained models                           |
-| ├── flood_risk.pkl          | Model      | Serialized model                         |
-| └── scaler.pkl              | Model      | Feature scaler                           |
-| **notebooks/**              | Directory  | Jupyter notebooks                        |
-| └── flood_analysis.ipynb    | Notebook   | Data exploration & modeling              |
-| **src/**                    | Directory  | Application code                         |
-| ├── app.py                  | Script     | Flask API                                |
-| ├── model.py                | Script     | ML model code                            |
-| ├── preprocessing.py        | Script     | Data processing                          |
-| └── prediction.py           | Script     | Inference logic                          |
-| **Dockerfile**              | Config     | Container configuration                  |
-| **requirements.txt**        | Config     | Python dependencies                      |
-| **locustfile.py**           | Config     | Load testing configuration               |
+**Service Status**  
+`http://localhost:5000`  
+✅ **Status**: Running  
+👥 **Users**: 1  
+📈 **RPS**: 0.6  
+❌ **Failures**: 1%  
+
+### Request Statistics
+
+| Type | Endpoint  | Requests | Fails | Median (ms) | 95%ile (ms) | 99%ile (ms) | Avg (ms) | Min (ms) | Max (ms) | Avg Size (bytes) | Current RPS | Failures/s |
+|------|-----------|----------|-------|-------------|-------------|-------------|----------|----------|----------|------------------|-------------|------------|
+| GET  | `/`       | 1,623    | 9     | 8           | 10          | 17          | 20.81    | 1        | 10,941   | 6,017.45         | 0.3         | 0          |
+| POST | `/predict`| 1,622    | 9     | 86          | 110         | 170         | 90.28    | 1        | 710      | 178.71           | 0.3         | 0          |
+| **Total** |  | **3,245** | **18** | **23** | **99** | **150** | **55.53** | **1** | **10,941** | **3,098.98** | **0.6** | **0** |
+
+### Key Observations:
+- 🟢 Stable performance with 99% of requests under 150ms
+- ⚠️ 1% failure rate (18 failures out of 3,245 requests)
+- 📦 GET responses are larger (~6KB) vs POST (~180B)
+- ⏱️ POST `/predict` endpoint is ~10x slower than GET `/`
 
 ## Installation Guide
 
