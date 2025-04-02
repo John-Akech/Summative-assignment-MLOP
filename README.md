@@ -50,15 +50,7 @@ docker run -p 5000:5000 flood-model
 **API Usage**
 
 Prediction Endpoint
-curl -X POST -H "Content-Type: application/json" -d '{
-
-  "MonsoonIntensity": 0.72,
-  
-  "Urbanization": 0.38,
-  
-  "Deforestation": 0.81
-  
-}' http://localhost:5000/predict
+http://localhost:5000/predict
 
 **Retraining Workflow**
 
