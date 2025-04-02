@@ -8,3 +8,6 @@ venv/
 venv/
 *.dylib
 *.so
+venv/
+*.dylib
+*.so
