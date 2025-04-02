@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <h2 class="mb-4 animate__animated animate__fadeIn">
+            <i class="fas fa-calculator me-2"></i> FloodSense
+        </h2>
+        
+        <div class="card animate__animated animate__fadeInUp shadow">
+            <div class="card-header bg-primary text-white">
+                <i class="fas fa-calculator me-2"></i> Enter Environmental Factors
+            </div>
+            <div class="card-body">
+                <form id="predictionForm" method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                {{ form.monsoonIntensity.label(class="form-label") }}
+                                {{ form.monsoonIntensity(class="form-control", placeholder="Enter value 0-10") }}
+                                <div class="invalid-feedback">Please enter a value between 0 and 10</div>
+                            </div>
+                            <div class="mb-3">
+                                {{ form.topographyDrainage.label(class="form-label") }}
+                                {{ form.topographyDrainage(class="form-control", placeholder="Enter value 0-10") }}
+                                <div class="invalid-feedback">Please enter a value between 0 and 10</div>
+                            </div>
+                            <div class="mb-3">
+                                {{ form.riverManagement.label(class="form-label") }}
+                                {{ form.riverManagement(class="form-control", placeholder="Enter value 0-10") }}
+                                <div class="invalid-feedback">Please enter a value between 0 and 10</div>
+                            </div>
+                            <div class="mb-3">
+                                {{ form.deforestation.label(class="form-label") }}
+                                {{ form.deforestation(class="form-control", placeholder="Enter value 0-10") }}
+                                <div class="invalid-feedback">Please enter a value between 0 and 10</div>
+                            </div>
+                            <div class="mb-3">
+                                {{ form.urbanization.label(class="form-label") }}
+                                {{ form.urbanization(class="form-control", placeholder="Enter value 0-10") }}
+                                <div class="invalid-feedback">Please enter a value between 0 and 10</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                {{ form.climateChange.label(class="form-label") }}
+                                {{ form.climateChange(class="form-control", placeholder="Enter value 0-10") }}
+                                <div class="invalid-feedback">Please enter a value between 0 and 10</div>
+                            </div>
+                            <div class="mb-3">
+                                {{ form.siltation.label(class="form-label") }}
+                                {{ form.siltation(class="form-control", placeholder="Enter value 0-10") }}
+                                <div class="invalid-feedback">Please enter a value between 0 and 10</div>
+                            </div>
+                            <div class="mb-3">
+                                {{ form.agriculturalPractices.label(class="form-label") }}
+                                {{ form.agriculturalPractices(class="form-control", placeholder="Enter value 0-10") }}
+                                <div class="invalid-feedback">Please enter a value between 0 and 10</div>
+                            </div>
+                            <div class="mb-3">
+                                {{ form.encroachments.label(class="form-label") }}
+                                {{ form.encroachments(class="form-control", placeholder="Enter value 0-10") }}
+                                <div class="invalid-feedback">Please enter a value between 0 and 10</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 py-2">
+                        <i class="fas fa-bolt me-1"></i> Predict Flood Risk
+                    </button>
+                </form>
+
+                <div id="predictionResult" class="mt-4" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        // Form validation
+        $('#predictionForm').on('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate all inputs
+            let isValid = true;
+            $(this).find('input[type="number"]').each(function() {
+                const value = parseFloat($(this).val());
+                if (isNaN(value) || value < 0 || value > 10) {
+                    $(this).addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+    
+            if (!isValid) {
+                showAlert('Please correct the errors in the form', 'danger');
+                return;
+            }
+    
+            makePrediction();
+        });
+    
+        function makePrediction() {
+            const form = $('#predictionForm');
+            const submitBtn = form.find('button[type="submit"]');
+            const originalBtnText = submitBtn.html();
+            const resultDiv = $('#predictionResult');
+            
+            // Show loading state
+            submitBtn.prop('disabled', true);
+            submitBtn.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Predicting...');
+            resultDiv.hide();
+            
+            // Collect form data
+            const formData = {
+                monsoonIntensity: parseFloat($('#monsoonIntensity').val()),
+                topographyDrainage: parseFloat($('#topographyDrainage').val()),
+                riverManagement: parseFloat($('#riverManagement').val()),
+                deforestation: parseFloat($('#deforestation').val()),
+                urbanization: parseFloat($('#urbanization').val()),
+                climateChange: parseFloat($('#climateChange').val()),
+                siltation: parseFloat($('#siltation').val()),
+                agriculturalPractices: parseFloat($('#agriculturalPractices').val()),
+                encroachments: parseFloat($('#encroachments').val())
+            };
+    
+            // Get CSRF token
+            const csrfToken = $('meta[name="csrf-token"]').attr('content');
+            
+            // Set timeout for prediction (5 seconds)
+            const timeout = setTimeout(() => {
+                showAlert('Prediction is taking longer than expected. Please wait...', 'warning');
+            }, 5000);
+            
+            $.ajax({
+                url: '/predict',
+                type: 'POST',
+                contentType: 'application/json',
+                headers: {
+                    'X-CSRFToken': csrfToken
+                },
+                data: JSON.stringify(formData),
+                timeout: 10000, // 10 second timeout
+                success: function(data) {
+                    clearTimeout(timeout);
+                    if (data.error) {
+                        showAlert(data.error, 'danger');
+                    } else {
+                        displayPredictionResult(data);
+                    }
+                },
+                error: function(xhr) {
+                    clearTimeout(timeout);
+                    let errorMsg = 'An error occurred while making the prediction';
+                    try {
+                        const response = JSON.parse(xhr.responseText);
+                        if (response.error) {
+                            errorMsg = response.error;
+                        }
+                    } catch (e) {
+                        if (xhr.statusText === 'timeout') {
+                            errorMsg = 'The prediction request timed out. Please try again.';
+                        }
+                    }
+                    showAlert(errorMsg, 'danger');
+                },
+                complete: function() {
+                    clearTimeout(timeout);
+                    submitBtn.prop('disabled', false);
+                    submitBtn.html(originalBtnText);
+                }
+            });
+        }
+    
+        function displayPredictionResult(data) {
+            const resultDiv = $('#predictionResult');
+            
+            // Determine risk class and icon
+            let riskClass, riskIcon;
+            if (data.prediction === 'Low') {
+                riskClass = 'bg-success';
+                riskIcon = 'fa-check-circle';
+            } else if (data.prediction === 'Medium') {
+                riskClass = 'bg-warning';
+                riskIcon = 'fa-exclamation-triangle';
+            } else {
+                riskClass = 'bg-danger';
+                riskIcon = 'fa-exclamation-circle';
+            }
+            
+            resultDiv.html(`
+                <div class="card shadow-sm">
+                    <div class="card-header ${riskClass} text-white">
+                        <i class="fas ${riskIcon} me-2"></i> Prediction Result
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Flood Risk: 
+                            <span class="badge ${riskClass}">
+                                ${data.prediction}
+                            </span>
+                            <small class="text-muted ms-2">(${data.response_time})</small>
+                        </h5>
+                        <div class="mt-3">
+                            <h6><i class="fas fa-percentage me-1"></i> Probabilities:</h6>
+                            <div class="progress mb-2" style="height: 30px;">
+                                <div class="progress-bar bg-success" role="progressbar" 
+                                    style="width: ${data.probabilities.Low * 100}%" 
+                                    aria-valuenow="${data.probabilities.Low * 100}" 
+                                    aria-valuemin="0" aria-valuemax="100">
+                                    Low: ${(data.probabilities.Low * 100).toFixed(1)}%
+                                </div>
+                            </div>
+                            <div class="progress mb-2" style="height: 30px;">
+                                <div class="progress-bar bg-warning" role="progressbar" 
+                                    style="width: ${data.probabilities.Medium * 100}%" 
+                                    aria-valuenow="${data.probabilities.Medium * 100}" 
+                                    aria-valuemin="0" aria-valuemax="100">
+                                    Medium: ${(data.probabilities.Medium * 100).toFixed(1)}%
+                                </div>
+                            </div>
+                            <div class="progress" style="height: 30px;">
+                                <div class="progress-bar bg-danger" role="progressbar" 
+                                    style="width: ${data.probabilities.High * 100}%" 
+                                    aria-valuenow="${data.probabilities.High * 100}" 
+                                    aria-valuemin="0" aria-valuemax="100">
+                                    High: ${(data.probabilities.High * 100).toFixed(1)}%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `);
+            
+            resultDiv.show().addClass('animate__animated animate__fadeIn');
+            $('html, body').animate({
+                scrollTop: resultDiv.offset().top - 100
+            }, 500);
+        }
+        
+        function showAlert(message, type) {
+            const alert = $(`
+                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            `);
+            $('#predictionResult').before(alert);
+            setTimeout(() => alert.alert('close'), 5000);
+        }
+    });
+</script>
+{% endblock %}
