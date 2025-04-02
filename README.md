@@ -56,32 +56,36 @@ cd flood_prediction_system
 
 # Create and activate virtual environment
 
-python -m venv .env
+python -m venv env
 
-source .env/bin/activate  # Linux/Mac
+source env/bin/activate  # Linux/Mac
 
-# .env\Scripts\activate  # Windows
+source env\Scripts\activate  # Windows
 
 # Install dependencies
-pip install --upgrade pip
-pip install -r requirements.txt
 
-# Launch application
-flask run --host=0.0.0.0 --port=5000
+pip install --upgrade pip
+
+pip install -r src/requirements.txt
+
+# Launch application:
+
+python src/app.py
 
 ### Docker Deployment
 
-# Build the Docker image
-docker build -t flood-prediction-api:v1 .
+# Build the Docker image:
 
-# Run the container
-docker run -d \
-  -p 5000:5000 \
-  --name flood-api \
-  flood-prediction-api:v1
+docker build -t flood-model .
+
+# Run the container:
+
+docker run -p 5000:5000 flood-model
 
 # API Endpoints
+
 Prediction Endpoint
+
 URL: POST http://localhost:5000/api/v1/predict
 
 Request Example:
@@ -107,6 +111,7 @@ Response Example:
 }
 
 # Retraining Workflow
+
 **1. Upload new training data:**
 
 curl -X POST -F "file=@training_data.csv" http://localhost:5000/api/v1/upload
@@ -126,6 +131,7 @@ curl -X POST http://localhost:5000/api/v1/retrain
 | 8 containers    | 1000             | 310 ms      | 420 ms           | 2%         | 380 RPS    |
 
 **Test Conditions**:
+
 - Locust load testing tool v2.8+
 
 <img width="1440" alt="image" src="https://github.com/user-attachments/assets/ae5c97b7-7558-401b-86cb-2082bc744ea2" />
