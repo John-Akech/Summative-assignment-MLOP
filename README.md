@@ -20,30 +20,6 @@ Key features:
 - Locust 2.8+ (for load testing)
 
 
-## Performance Metrics
-
-**Service Status**  
-`http://localhost:5000`  
- **Status**: Running  
- **Users**: 1  
- **RPS**: 0.6  
- **Failures**: 1%  
-
-### Request Statistics
-
-| Type | Endpoint  | Requests | Fails | Median (ms) | 95%ile (ms) | 99%ile (ms) | Avg (ms) | Min (ms) | Max (ms) | Avg Size (bytes) | Current RPS | Failures/s |
-|------|-----------|----------|-------|-------------|-------------|-------------|----------|----------|----------|------------------|-------------|------------|
-| GET  | `/`       | 1,623    | 9     | 8           | 10          | 17          | 20.81    | 1        | 10,941   | 6,017.45         | 0.3         | 0          |
-| POST | `/predict`| 1,622    | 9     | 86          | 110         | 170         | 90.28    | 1        | 710      | 178.71           | 0.3         | 0          |
-| **Total** |  | **3,245** | **18** | **23** | **99** | **150** | **55.53** | **1** | **10,941** | **3,098.98** | **0.6** | **0** |
-
-### Key Observations:
--  Stable performance with 99% of requests under 150ms
--  1% failure rate (18 failures out of 3,245 requests)
--  GET responses are larger (~6KB) vs POST (~180B)
--  POST `/predict` endpoint is ~10x slower than GET `/`
-
-
 ## Installation Guide
 
 ### Local Development
@@ -120,14 +96,28 @@ curl -X POST -F "file=@training_data.csv" http://localhost:5000/api/v1/upload
 curl -X POST http://localhost:5000/api/v1/retrain
 
 
-## Performance Benchmarks
+## Performance Metrics
 
-| Configuration   | Concurrent Users | Avg Latency | 95th Percentile | Error Rate | Throughput |
-|-----------------|------------------|-------------|------------------|------------|------------|
-| 1 container     | 100              | 320 ms      | 410 ms           | 0%         | 48 RPS     |
-| 2 containers    | 250              | 290 ms      | 380 ms           | 0%         | 112 RPS    |
-| 4 containers    | 500              | 270 ms      | 350 ms           | 0%         | 235 RPS    |
-| 8 containers    | 1000             | 310 ms      | 420 ms           | 2%         | 380 RPS    |
+**Service Status**  
+`http://localhost:5000`  
+ **Status**: Running  
+ **Users**: 1  
+ **RPS**: 0.6  
+ **Failures**: 1%  
+
+### Request Statistics
+
+| Type | Endpoint  | Requests | Fails | Median (ms) | 95%ile (ms) | 99%ile (ms) | Avg (ms) | Min (ms) | Max (ms) | Avg Size (bytes) | Current RPS | Failures/s |
+|------|-----------|----------|-------|-------------|-------------|-------------|----------|----------|----------|------------------|-------------|------------|
+| GET  | `/`       | 1,623    | 9     | 8           | 10          | 17          | 20.81    | 1        | 10,941   | 6,017.45         | 0.3         | 0          |
+| POST | `/predict`| 1,622    | 9     | 86          | 110         | 170         | 90.28    | 1        | 710      | 178.71           | 0.3         | 0          |
+| **Total** |  | **3,245** | **18** | **23** | **99** | **150** | **55.53** | **1** | **10,941** | **3,098.98** | **0.6** | **0** |
+
+### Key Observations:
+-  Stable performance with 99% of requests under 150ms
+-  1% failure rate (18 failures out of 3,245 requests)
+-  GET responses are larger (~6KB) vs POST (~180B)
+-  POST `/predict` endpoint is ~10x slower than GET `/`
 
 **Test Conditions**:
 
