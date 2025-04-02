@@ -28,7 +28,9 @@ cd flood-prediction-system
 **Create virtual environment:**
 
 python -m venv venv
+
 source venv/bin/activate  # Linux/Mac
+
 venv\Scripts\activate    # Windows
 
 **Install dependencies:**
@@ -42,14 +44,17 @@ python src/app.py
 **Docker Setup**
 
 1. Build the image:
+2. 
 docker build -t flood-model .
 
-2. Run container:
+3. Run container:
+4. 
 docker run -p 5000:5000 flood-model
 
 **API Usage**
 
 Prediction Endpoint
+
 http://localhost:5000/predict
 
 **Retraining Workflow**
@@ -63,14 +68,20 @@ curl -F "file=@new_data.csv" http://localhost:5000/upload
 curl -X POST http://localhost:5000/retrain
 
 **Performance Metrics**
+
 Load testing results using Locust:
 
 Containers	Users	Avg Latency	Error Rate
+
 1	          100	  320ms	      0%
+
 2          	250	  290ms      	0%
+
 4          	500	  270ms      	0%
+
 8	          1000	310ms      	2%
 
 
 **Support**
+
 For issues, please open a ticket in GitHub Issues.
