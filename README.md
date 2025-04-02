@@ -55,8 +55,11 @@ git clone https://github.com/John-Akech/Summative-assignment-MLOP.git
 cd flood_prediction_system
 
 # Create and activate virtual environment
+
 python -m venv .env
+
 source .env/bin/activate  # Linux/Mac
+
 # .env\Scripts\activate  # Windows
 
 # Install dependencies
@@ -85,8 +88,11 @@ Request Example:
 
 {
   "rainfall": 85.2,
+  
   "temperature": 31.5,
+  
   "humidity": 78,
+  
   "terrain_index": 0.72
 }
 
@@ -94,7 +100,9 @@ Response Example:
 
 {
   "prediction": "high",
+  
   "confidence": 0.92,
+  
   "model_version": "1.0.3"
 }
 
