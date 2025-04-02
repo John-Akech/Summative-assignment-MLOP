@@ -20,17 +20,17 @@ A machine learning system that predicts flood risks in South Sudan based on envi
 
 ### Local Setup
 1. Clone repository:
-```bash
-git clone https://github.com/yourusername/flood-risk-prediction.git
+
+git@github.com:John-Akech/Summative-assignment-MLOP.git
 cd flood-risk-prediction
 
-Create virtual environment:
+**Create virtual environment:**
 
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
 venv\Scripts\activate    # Windows
 
-Install dependencies:
+**Install dependencies:**
 
 pip install -r requirements.txt
 
@@ -38,14 +38,16 @@ Launch application:
 
 python src/app.py
 
-Docker Setup
+**Docker Setup**
+
 1. Build the image:
 docker build -t flood-model .
 
 2. Run container:
 docker run -p 5000:5000 flood-model
 
-API Usage
+**API Usage**
+
 Prediction Endpoint
 curl -X POST -H "Content-Type: application/json" -d '{
   "MonsoonIntensity": 0.72,
@@ -53,7 +55,8 @@ curl -X POST -H "Content-Type: application/json" -d '{
   "Deforestation": 0.81
 }' http://localhost:5000/predict
 
-Retraining Workflow
+**Retraining Workflow**
+
 1. Upload CSV data:
 
 curl -F "file=@new_data.csv" http://localhost:5000/upload
@@ -62,7 +65,7 @@ curl -F "file=@new_data.csv" http://localhost:5000/upload
 
 curl -X POST http://localhost:5000/retrain
 
-Performance Metrics
+**Performance Metrics**
 Load testing results using Locust:
 
 Containers	Users	Avg Latency	Error Rate
@@ -71,7 +74,7 @@ Containers	Users	Avg Latency	Error Rate
 4          	500	  270ms      	0%
 8	          1000	310ms      	2%
 
-File Structure
+**File Structure**
 
 flood-prediction-system/
 ├── data/ # All data files
@@ -96,5 +99,5 @@ flood-prediction-system/
 ├── requirements.txt # Python dependencies
 └── locustfile.py # Load testing configuration
 
-Support
+**Support**
 For issues, please open a ticket in GitHub Issues.
