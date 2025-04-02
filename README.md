@@ -44,11 +44,11 @@ python src/app.py
 **Docker Setup**
 
 1. Build the image:
-2. 
+   
 docker build -t flood-model .
 
-3. Run container:
-4. 
+2. Run container:
+    
 docker run -p 5000:5000 flood-model
 
 **API Usage**
