@@ -28,6 +28,15 @@ Key features:
 📈 **RPS**: 0.6  
 ❌ **Failures**: 1%  
 
+## 📊 Performance Metrics
+
+**Service Status**  
+`http://localhost:5000`  
+✅ **Status**: Running  
+👥 **Users**: 1  
+📈 **RPS**: 0.6  
+❌ **Failures**: 1%  
+
 ### Request Statistics
 
 | Type | Endpoint  | Requests | Fails | Median (ms) | 95%ile (ms) | 99%ile (ms) | Avg (ms) | Min (ms) | Max (ms) | Avg Size (bytes) | Current RPS | Failures/s |
@@ -41,6 +50,7 @@ Key features:
 - ⚠️ 1% failure rate (18 failures out of 3,245 requests)
 - 📦 GET responses are larger (~6KB) vs POST (~180B)
 - ⏱️ POST `/predict` endpoint is ~10x slower than GET `/`
+
 
 ## Installation Guide
 
