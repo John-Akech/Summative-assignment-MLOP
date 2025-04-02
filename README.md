@@ -77,27 +77,33 @@ Containers	Users	Avg Latency	Error Rate
 **File Structure**
 
 flood-prediction-system/
-├── data/ # All data files
-│ ├── raw/ # Original/unprocessed data
-│ │ └── flood.csv # Source dataset
-│ ├── processed/ # Cleaned and processed data
-│ │ ├── flood_processed.csv # Final processed dataset
-│ │ ├── test_data.csv # Test split
-│ │ └── train_data.csv # Training split
-│ └── feature_importance.csv # Feature rankings
-├── models/ # Trained models
-│ ├── flood_risk.pkl # Serialized model
-│ └── scaler.pkl # Feature scaler
-├── notebooks/ # Jupyter notebooks
-│ └── flood_analysis.ipynb # Data exploration & modeling
-├── src/ # Application code
-│ ├── app.py # Flask API
-│ ├── model.py # ML model code
-│ ├── preprocessing.py # Data processing
-│ └── prediction.py # Inference logic
-├── Dockerfile # Container configuration
-├── requirements.txt # Python dependencies
-└── locustfile.py # Load testing configuration
+│
+├── data/                       # All data files
+│   ├── raw/                    # Original/unprocessed data
+│   │   └── flood.csv           # Source dataset
+│   ├── processed/              # Cleaned and processed data
+│   │   ├── flood_processed.csv  # Final processed dataset
+│   │   ├── test_data.csv       # Test split (20%)
+│   │   └── train_data.csv      # Training split (80%)
+│   └── feature_importance.csv  # Generated feature rankings
+│
+├── models/                     # Trained model artifacts
+│   ├── flood_risk.pkl          # Serialized prediction model
+│   └── scaler.pkl              # Feature scaling object
+│
+├── notebooks/                  # Analysis notebooks
+│   └── flood_analysis.ipynb    # EDA and model development
+│
+├── src/                        # Application source code
+│   ├── app.py                  # Flask REST API
+│   ├── model.py                # Model training logic
+│   ├── preprocessing.py        # Data cleaning pipeline
+│   └── prediction.py           # Inference functions
+│
+├── Dockerfile                  # Container build instructions
+├── requirements.txt            # Python dependencies
+├── locustfile.py               # Load testing script
+└── README.md                   # Project documentation
 
 **Support**
 For issues, please open a ticket in GitHub Issues.
