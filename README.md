@@ -74,21 +74,6 @@ Containers	Users	Avg Latency	Error Rate
 4          	500	  270ms      	0%
 8	          1000	310ms      	2%
 
-**File Structure**
-
-flood-risk/
-├── data/               # Datasets
-│   ├── processed/      # Cleaned data
-│   └── raw/            # Original data
-├── models/             # Saved models
-├── notebooks/          # Analysis notebooks
-├── src/                # Application code
-│   ├── app.py          # Flask app
-│   ├── model.py        # ML model
-│   └── utils.py        # Helpers
-├── Dockerfile          # Container config
-├── requirements.txt    # Dependencies
-└── locustfile.py       # Load testing
 
 **Support**
 For issues, please open a ticket in GitHub Issues.
