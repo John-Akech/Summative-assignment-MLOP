@@ -19,23 +19,15 @@ Key features:
 - Docker 20.10+
 - Locust 2.8+ (for load testing)
 
-## 📊 Performance Metrics
+
+## Performance Metrics
 
 **Service Status**  
 `http://localhost:5000`  
-✅ **Status**: Running  
-👥 **Users**: 1  
-📈 **RPS**: 0.6  
-❌ **Failures**: 1%  
-
-## 📊 Performance Metrics
-
-**Service Status**  
-`http://localhost:5000`  
-✅ **Status**: Running  
-👥 **Users**: 1  
-📈 **RPS**: 0.6  
-❌ **Failures**: 1%  
+ **Status**: Running  
+ **Users**: 1  
+ **RPS**: 0.6  
+ **Failures**: 1%  
 
 ### Request Statistics
 
@@ -46,10 +38,10 @@ Key features:
 | **Total** |  | **3,245** | **18** | **23** | **99** | **150** | **55.53** | **1** | **10,941** | **3,098.98** | **0.6** | **0** |
 
 ### Key Observations:
-- 🟢 Stable performance with 99% of requests under 150ms
-- ⚠️ 1% failure rate (18 failures out of 3,245 requests)
-- 📦 GET responses are larger (~6KB) vs POST (~180B)
-- ⏱️ POST `/predict` endpoint is ~10x slower than GET `/`
+-  Stable performance with 99% of requests under 150ms
+-  1% failure rate (18 failures out of 3,245 requests)
+-  GET responses are larger (~6KB) vs POST (~180B)
+-  POST `/predict` endpoint is ~10x slower than GET `/`
 
 
 ## Installation Guide
