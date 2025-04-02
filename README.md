@@ -134,4 +134,4 @@ curl -X POST http://localhost:5000/api/v1/retrain
 
 - Locust load testing tool v2.8+
 
-<img width="1440" alt="image" src="https://github.com/user-attachments/assets/ae5c97b7-7558-401b-86cb-2082bc744ea2" />
+<img width="1373" alt="image" src="https://github.com/user-attachments/assets/36890a35-65e3-4a9a-9285-58c8a392de85" />
