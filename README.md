@@ -1,9 +1,9 @@
 # Flood Risk Prediction System
 
-## 📹 Video Demonstration
+## Video Demonstration
 [![System Demo Video](https://img.shields.io/badge/YouTube-Demo_Video-FF0000?style=for-the-badge&logo=youtube)](https://youtu.be/your-actual-demo-link)
 
-## 📋 Project Description
+## Project Description
 An end-to-end machine learning system for flood risk prediction in South Sudan. Key features:
 
 - **Real-time predictions**: Classifies risk levels (Low/Medium/High) via API
@@ -11,13 +11,13 @@ An end-to-end machine learning system for flood risk prediction in South Sudan. 
 - **Model management**: Continuous training pipeline with new data
 - **Scalable infrastructure**: Containerized deployment ready for cloud platforms
 
-## ⚙️ Technical Requirements
+## Technical Requirements
 - Python 3.8+
 - Docker 20.10+
 - Locust 2.8+ (for load testing)
 - AWS/GCP/Azure account (for cloud deployment)
 
-  ## 📂 Project Structure
+  ## Project Structure
 
 | Directory/File              | Type       | Description                              |
 |-----------------------------|------------|------------------------------------------|
@@ -43,10 +43,10 @@ An end-to-end machine learning system for flood risk prediction in South Sudan. 
 | **requirements.txt**        | Config     | Python dependencies                      |
 | **locustfile.py**           | Config     | Load testing configuration               |
 
-## 🚀 Installation Guide
+## Installation Guide
 
 ### Local Development
-```bash
+
 # Clone the repository
 git clone https://github.com/John-Akech/Summative-assignment-MLOP.git
 cd Summative-assignment-MLOP
@@ -63,7 +63,7 @@ pip install -r requirements.txt
 # Launch application
 flask run --host=0.0.0.0 --port=5000
 
-### 🐳 Docker Deployment
+### Docker Deployment
 
 # Build the Docker image
 docker build -t flood-prediction-api:v1 .
@@ -74,7 +74,7 @@ docker run -d \
   --name flood-api \
   flood-prediction-api:v1
 
-# 📡 API Endpoints
+# API Endpoints
 Prediction Endpoint
 URL: POST http://localhost:5000/api/v1/predict
 
@@ -105,7 +105,7 @@ curl -X POST -F "file=@training_data.csv" http://localhost:5000/api/v1/upload
 curl -X POST http://localhost:5000/api/v1/retrain
 
 
-## 🚀 Performance Benchmarks
+## Performance Benchmarks
 
 | Configuration   | Concurrent Users | Avg Latency | 95th Percentile | Error Rate | Throughput |
 |-----------------|------------------|-------------|------------------|------------|------------|
@@ -116,5 +116,3 @@ curl -X POST http://localhost:5000/api/v1/retrain
 
 **Test Conditions**:
 - Locust load testing tool v2.8+
-- AWS EC2 c5.xlarge instances
-- 1 request per second per user
