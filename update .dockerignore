@@ -1,8 +1,0 @@
-echo "venv/
-*.pyc
-__pycache__/
-.git/
-.DS_Store
-*.ipynb
-*.log
-*.csv" > .dockerignore
