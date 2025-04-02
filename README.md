@@ -4,7 +4,9 @@
 [![System Demo Video](https://img.shields.io/badge/YouTube-Demo_Video-FF0000?style=for-the-badge&logo=youtube)](https://youtu.be/your-actual-demo-link)
 
 ## Project Description
-An end-to-end machine learning system for flood risk prediction in South Sudan. Key features:
+An end-to-end machine learning system for flood risk prediction in South Sudan.
+
+Key features:
 
 - **Real-time predictions**: Classifies risk levels (Low/Medium/High) via API
 - **Data visualization**: Interactive dashboards showing environmental trends
