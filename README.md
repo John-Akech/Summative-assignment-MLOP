@@ -21,7 +21,7 @@ A machine learning system that predicts flood risks in South Sudan based on envi
 ### Local Setup
 1. Clone repository:
 
-git@github.com:John-Akech/Summative-assignment-MLOP.git
+git clone git@github.com:John-Akech/Summative-assignment-MLOP.git
 cd flood-risk-prediction
 
 **Create virtual environment:**
