@@ -73,13 +73,13 @@ Load testing results using Locust:
 
 Containers	Users	Avg Latency	Error Rate
 
-1	          100	  320ms	      0%
+1	             100	      320ms	       0%
 
-2          	250	  290ms      	0%
+2          	    250	      290ms        0%
 
-4          	500	  270ms      	0%
+4          	    500	      270ms        0%
 
-8	          1000	310ms      	2%
+8	             1000	      310ms        2%
 
 
 **Support**
