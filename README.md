@@ -1,6 +1,7 @@
 # Flood Risk Prediction System
 
 ## Video Demonstration
+
 [![System Demo Video](https://img.shields.io/badge/YouTube-Demo_Video-FF0000?style=for-the-badge&logo=youtube)](https://youtu.be/your-actual-demo-link)
 
 ## Project Description
@@ -50,7 +51,8 @@ Key features:
 
 # Clone the repository
 git clone https://github.com/John-Akech/Summative-assignment-MLOP.git
-cd Summative-assignment-MLOP
+
+cd flood_prediction_system
 
 # Create and activate virtual environment
 python -m venv .env
