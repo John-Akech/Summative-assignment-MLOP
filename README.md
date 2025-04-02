@@ -17,13 +17,12 @@ Key features:
 - Python 3.8+
 - Docker 20.10+
 - Locust 2.8+ (for load testing)
-- AWS/GCP/Azure account (for cloud deployment)
 
   ## Project Structure
 
 | Directory/File              | Type       | Description                              |
 |-----------------------------|------------|------------------------------------------|
-| **data/**                   | Directory  | All data files                           |
+| **flood_prediction_system/**| Directory  | All data files                           |
 | ├── **raw/**                | Directory  | Original/unprocessed data                |
 | │   └── flood.csv           | Dataset    | Source dataset                           |
 | ├── **processed/**          | Directory  | Cleaned and processed data               |
