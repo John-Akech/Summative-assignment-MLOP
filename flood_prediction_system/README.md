@@ -2,7 +2,7 @@
 
 ## Video Demonstration
 
-[![System Demo Video](https://img.shields.io/badge/YouTube-Demo_Video-FF0000?style=for-the-badge&logo=youtube)](https://youtu.be/your-actual-demo-link)
+[![System Demo Video](https://img.shields.io/badge/YouTube-Demo_Video-FF0000?style=for-the-badge&logo=youtube)](https://youtu.be/S50aIXxKcCw)
 
 ## Project Description
 An end-to-end machine learning system for flood risk prediction in South Sudan.
