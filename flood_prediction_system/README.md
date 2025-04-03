@@ -1,87 +1,125 @@
 # Flood Risk Prediction System
 
 ## Video Demonstration
-[Watch the system walkthrough on YouTube](https://youtu.be/demo-link-here)
+
+[![System Demo Video](https://img.shields.io/badge/YouTube-Demo_Video-FF0000?style=for-the-badge&logo=youtube)](https://youtu.be/your-actual-demo-link)
 
 ## Project Description
-A machine learning system that predicts flood risks in South Sudan based on environmental factors. The deployed model provides:
-- Real-time flood risk classification (Low/Medium/High)
-- Visualizations of key environmental trends
-- Retraining capability with new data
-- Scalable API endpoints
+An end-to-end machine learning system for flood risk prediction in South Sudan.
+
+Key features:
+
+- **Real-time predictions**: Classifies risk levels (Low/Medium/High) via API
+- **Data visualization**: Interactive dashboards showing environmental trends
+- **Model management**: Continuous training pipeline with new data
+- **Scalable infrastructure**: Containerized deployment ready for cloud platforms
 
 ## Technical Requirements
 - Python 3.8+
-- Docker
-- Locust (for load testing)
-- Cloud account (AWS/GCP/Azure) for deployment
+- Docker 20.10+
+- Locust 2.8+ (for load testing)
+
 
 ## Installation Guide
 
-### Local Setup
-1. Clone repository:
+### Local Development
 
-git clone git@github.com:John-Akech/Summative-assignment-MLOP.git
+# Clone the repository
+git clone https://github.com/John-Akech/Summative-assignment-MLOP.git
 
-cd flood-prediction-system
+cd flood_prediction_system
 
-**Create virtual environment:**
+# Create and activate virtual environment
 
-python -m venv venv
+python -m venv env
 
-source venv/bin/activate  # Linux/Mac
+source env/bin/activate  # Linux/Mac
 
-venv\Scripts\activate    # Windows
+source env\Scripts\activate  # Windows
 
-**Install dependencies:**
+# Install dependencies
+
+pip install --upgrade pip
 
 pip install -r src/requirements.txt
 
-Launch application:
+# Launch application:
 
 python src/app.py
 
-**Docker Setup**
+### Docker Deployment
 
-1. Build the image:
-   
+# Build the Docker image:
+
 docker build -t flood-model .
 
-2. Run container:
-    
+# Run the container:
+
 docker run -p 5000:5000 flood-model
 
-**API Usage**
+# API Endpoints
 
 Prediction Endpoint
 
-http://localhost:5000/predict
+URL: POST [http://localhost:5000/api/v1/predict](http://localhost:5000/predict)
 
-**Retraining Workflow**
+Request Example:
 
-1. Upload CSV data:
+{
+  "rainfall": 85.2,
+  
+  "temperature": 31.5,
+  
+  "humidity": 78,
+  
+  "terrain_index": 0.72
+}
+
+Response Example:
+
+{
+  "prediction": "high",
+  
+  "confidence": 0.92,
+  
+  "model_version": "1.0.3"
+}
+
+# Retraining Workflow
+
+**1. Upload new training data:**
 
 curl -F "file=@new_data.csv" http://localhost:5000/upload
 
-2. Trigger retraining:
+**2. Trigger model retraining:**
 
 curl -X POST http://localhost:5000/retrain
 
-**Performance Metrics**
+## Performance Metrics
 
-Load testing results using Locust:
+**Service Status**  
+`http://localhost:5000`  
+ **Status**: Running  
+ **Users**: 1  
+ **RPS**: 0.6  
+ **Failures**: 1%  
 
-Containers	Users	Avg Latency	Error Rate
+### Request Statistics
 
-1	             100	      320ms	       0%
+| Type | Endpoint  | Requests | Fails | Median (ms) | 95%ile (ms) | 99%ile (ms) | Avg (ms) | Min (ms) | Max (ms) | Avg Size (bytes) | Current RPS | Failures/s |
+|------|-----------|----------|-------|-------------|-------------|-------------|----------|----------|----------|------------------|-------------|------------|
+| GET  | `/`       | 1,623    | 9     | 8           | 10          | 17          | 20.81    | 1        | 10,941   | 6,017.45         | 0.3         | 0          |
+| POST | `/predict`| 1,622    | 9     | 86          | 110         | 170         | 90.28    | 1        | 710      | 178.71           | 0.3         | 0          |
+| **Total** |  | **3,245** | **18** | **23** | **99** | **150** | **55.53** | **1** | **10,941** | **3,098.98** | **0.6** | **0** |
 
-2          	    250	      290ms        0%
+### Key Observations:
+-  Stable performance with 99% of requests under 150ms
+-  1% failure rate (18 failures out of 3,245 requests)
+-  GET responses are larger (~6KB) vs POST (~180B)
+-  POST `/predict` endpoint is ~10x slower than GET `/`
 
-4          	    500	      270ms        0%
+**Test Conditions**:
 
-8	             1000	      310ms        2%
+- Locust load testing tool v2.8+
 
-
-**Support**
-
-For issues, please open a ticket in GitHub Issues.
+<img width="1373" alt="image" src="https://github.com/user-attachments/assets/36890a35-65e3-4a9a-9285-58c8a392de85" />
