@@ -1,1 +1,7 @@
-
+services:
+  - type: web
+    name: flood-prediction-app
+    runtime: docker
+    port: 5000
+    env: production
+    plan: free
