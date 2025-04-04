@@ -9,15 +9,22 @@ services:
       - ./data:/app/data
       - ./models:/app/models
     environment:
-      - FLASK_ENV=development
+      - FLASK_ENV=production  # Use "production" for Render
     restart: unless-stopped
 
   locust:
-    image: locustio/locust
+    image: locustio/locust:2.20.0  # Pin version for stability
     ports:
       - "8089:8089"
     volumes:
-      - ./tests:/mnt/locust
-    command: -f /mnt/locust/locustfile.py --host=http://web:5000
+      - ./locustfile.py:/mnt/locust/locustfile.py  # Directly mount the file
+    command: 
+      - "--headless"  # Disable UI for Render (or remove for local testing)
+      - "--host=http://web:5000"
+      - "--users=100"
+      - "--spawn-rate=10"
+      - "--run-time=1m"
     depends_on:
       - web
+    environment:
+      - LOCUST_WEB_AUTH=admin:password  # Optional auth
