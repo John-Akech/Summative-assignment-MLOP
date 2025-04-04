@@ -1,1 +1,7 @@
-
+services:
+  - type: worker
+    name: locust-worker
+    runtime: docker
+    env: docker
+    plan: free
+    dockerfile: Dockerfile.locust  # Create a minimal Locust-only Dockerfile
