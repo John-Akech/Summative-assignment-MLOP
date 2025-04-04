@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   web:
     build: .
@@ -9,22 +7,17 @@ services:
       - ./data:/app/data
       - ./models:/app/models
     environment:
-      - FLASK_ENV=production  # Use "production" for Render
+      - FLASK_ENV=production
     restart: unless-stopped
 
   locust:
-    image: locustio/locust:2.20.0  # Pin version for stability
+    image: locustio/locust:2.20.0
     ports:
       - "8089:8089"
     volumes:
-      - ./locustfile.py:/mnt/locust/locustfile.py  # Directly mount the file
+      - ./locustfile.py:/locust/locustfile.py  # Critical path change
     command: 
-      - "--headless"  # Disable UI for Render (or remove for local testing)
-      - "--host=http://web:5000"
-      - "--users=100"
-      - "--spawn-rate=10"
-      - "--run-time=1m"
+      - "--locustfile=/locust/locustfile.py"
+      - "--host=http://web:5000"  # Uses Docker's internal networking
     depends_on:
       - web
-    environment:
-      - LOCUST_WEB_AUTH=admin:password  # Optional auth
