@@ -1,7 +1,9 @@
 services:
   - type: web
     name: flood-prediction-app
-    runtime: docker
-    port: 5000
-    env: production
-    plan: free
+    runtime: python
+    buildCommand: pip install -r src/requirements.txt
+    startCommand: gunicorn src.app:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: FLASK_ENV
+        value: production
